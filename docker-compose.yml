@@ -1,0 +1,34 @@
+version: "2"
+services:
+
+  gearman:
+    build:
+      context: .
+    image: waltznetworks/docker-gearman:latest
+    mem_limit: 128m
+    links:
+      - consul:consul
+    expose:
+      - 4730
+    ports:
+      - 4730:4730
+    depends_on:
+      - consul
+
+  # service discovery tier
+  consul:
+    image: progrium/consul:latest
+    command: -server -bootstrap -ui-dir /ui
+    restart: always
+    mem_limit: 128m
+    ports:
+      - 8500:8500
+    expose:
+      - 53
+      - 8300
+      - 8301
+      - 8302
+      - 8400
+      - 8500
+    dns:
+      - 127.0.0.1
