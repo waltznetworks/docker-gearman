@@ -1,0 +1,12 @@
+{
+    "consul": "consul:8500",
+    "services": [
+        {
+            "name": "gearman",
+            "port": 4730,
+            "health": "nc -z 127.0.0.1 4730",
+            "poll": 3,
+            "ttl": 10
+        }
+    ]
+}
